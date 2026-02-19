@@ -1,0 +1,20 @@
+{
+  "site_title": "Renso Foundation",
+  "tagline": "Connecting Communities. Creating Impact.",
+  "mission": "Renso Foundation is a multicultural non-profit organization dedicated to empowering individuals and strengthening communities across Canada through leadership development, economic opportunity, cultural connection, and compassionate healthcare initiatives.",
+  "vision": "To become a nationally recognized foundation that bridges diverse communities, inspires civic leadership, and creates measurable social impact in Canada.",
+  "contact": {
+    "address": "123 Community Drive, Suite 200",
+    "city": "Mississauga, Ontario L5B 3M9",
+    "phone": "+1 (905) 555-0182",
+    "email_general": "hello@rensofoundation.ca",
+    "email_donations": "donate@rensofoundation.ca",
+    "email_media": "media@rensofoundation.ca"
+  },
+  "impact": {
+    "lives": "5,000+",
+    "programs": "12+",
+    "volunteers": "200+",
+    "raised": "500K+"
+  }
+}

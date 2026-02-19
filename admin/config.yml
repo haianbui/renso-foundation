@@ -1,0 +1,118 @@
+backend:
+  name: github
+  repo: haianbui/renso-foundation
+  branch: main
+  base_url: https://renso-foundation.vercel.app
+  auth_endpoint: /api/auth
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+
+  # ─── SITE SETTINGS ───────────────────────────────────────────────
+  - name: "settings"
+    label: "⚙️ Site Settings"
+    files:
+      - name: "general"
+        label: "General Settings"
+        file: "_data/settings.json"
+        fields:
+          - { label: "Site Title", name: "site_title", widget: "string", default: "Renso Foundation" }
+          - { label: "Tagline", name: "tagline", widget: "string", default: "Connecting Communities. Creating Impact." }
+          - { label: "Mission Statement", name: "mission", widget: "text" }
+          - { label: "Vision Statement", name: "vision", widget: "text" }
+          - label: "Contact Info"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "Address", name: "address", widget: "string" }
+              - { label: "City", name: "city", widget: "string" }
+              - { label: "Phone", name: "phone", widget: "string" }
+              - { label: "General Email", name: "email_general", widget: "string" }
+              - { label: "Donations Email", name: "email_donations", widget: "string" }
+              - { label: "Media Email", name: "email_media", widget: "string" }
+          - label: "Impact Numbers"
+            name: "impact"
+            widget: "object"
+            fields:
+              - { label: "Lives Impacted", name: "lives", widget: "string", default: "5,000+" }
+              - { label: "Active Programs", name: "programs", widget: "string", default: "12+" }
+              - { label: "Volunteers", name: "volunteers", widget: "string", default: "200+" }
+              - { label: "Dollars Raised", name: "raised", widget: "string", default: "500K+" }
+
+  # ─── PROGRAMS ────────────────────────────────────────────────────
+  - name: "programs"
+    label: "💼 Programs"
+    folder: "_data/programs"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Program Name", name: "title", widget: "string" }
+      - { label: "Category", name: "category", widget: "select", options: ["Healthcare & Compassion", "Economic Empowerment", "Education & Leadership", "Community & Cultural Events"] }
+      - { label: "Icon (Font Awesome class)", name: "icon", widget: "string", default: "fa-solid fa-star" }
+      - { label: "Description", name: "description", widget: "text" }
+      - label: "Sub-Programs / Tags"
+        name: "tags"
+        widget: "list"
+        field: { label: "Tag", name: "tag", widget: "string" }
+      - { label: "Active", name: "active", widget: "boolean", default: true }
+
+  # ─── EVENTS ──────────────────────────────────────────────────────
+  - name: "events"
+    label: "🎟 Events"
+    folder: "_data/events"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Event Name", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Time", name: "time", widget: "string", hint: "e.g. 6:00 PM – 11:00 PM" }
+      - { label: "Location", name: "location", widget: "string" }
+      - { label: "Category", name: "category", widget: "string", hint: "e.g. Annual Fundraiser, Cultural Celebration" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Registration Link", name: "register_url", widget: "string", required: false }
+      - { label: "Featured Image", name: "image", widget: "image", required: false }
+      - { label: "Status", name: "status", widget: "select", options: ["Upcoming", "Past", "Cancelled"] }
+
+  # ─── NEWS & BLOG ─────────────────────────────────────────────────
+  - name: "news"
+    label: "📰 News & Blog"
+    folder: "_data/news"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Category", name: "category", widget: "select", options: ["Press Release", "Blog", "Community Story", "Impact Report"] }
+      - { label: "Author", name: "author", widget: "string", default: "Renso Foundation" }
+      - { label: "Summary", name: "summary", widget: "text", hint: "Short excerpt shown on the news card" }
+      - { label: "Full Content", name: "body", widget: "markdown" }
+      - { label: "Featured Image", name: "image", widget: "image", required: false }
+      - { label: "Published", name: "published", widget: "boolean", default: true }
+
+  # ─── BOARD OF DIRECTORS ──────────────────────────────────────────
+  - name: "board"
+    label: "🏛 Board of Directors"
+    folder: "_data/board"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Full Name", name: "name", widget: "string" }
+      - { label: "Title / Role", name: "role", widget: "string" }
+      - { label: "Bio", name: "bio", widget: "text" }
+      - { label: "Photo", name: "photo", widget: "image", required: false }
+      - { label: "LinkedIn URL", name: "linkedin", widget: "string", required: false }
+      - { label: "Display Order", name: "order", widget: "number", default: 1 }
+
+  # ─── CORE VALUES ─────────────────────────────────────────────────
+  - name: "values"
+    label: "💎 Core Values"
+    folder: "_data/values"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Value Name", name: "title", widget: "string" }
+      - { label: "Icon (Font Awesome class)", name: "icon", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Display Order", name: "order", widget: "number", default: 1 }
