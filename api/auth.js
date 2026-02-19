@@ -1,34 +1,40 @@
 // Vercel Serverless Function — GitHub OAuth proxy for Decap CMS
-// This handles the OAuth handshake between Decap CMS and GitHub
-// so editors can log in with their GitHub account.
-//
 // Required environment variables in Vercel dashboard:
 //   GITHUB_CLIENT_ID     → from your GitHub OAuth App
 //   GITHUB_CLIENT_SECRET → from your GitHub OAuth App
+//   PRODUCTION_URL       → https://renso-foundation.vercel.app (set this manually)
 
 const GITHUB_CLIENT_ID     = process.env.GITHUB_CLIENT_ID;
 const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
-const ORIGIN               = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : 'https://renso-foundation.vercel.app';
+
+// Always use the fixed production URL — never the per-deployment VERCEL_URL
+// because that changes each deploy and won't match the GitHub OAuth callback.
+const ORIGIN = process.env.PRODUCTION_URL || 'https://renso-foundation.vercel.app';
 
 export default async function handler(req, res) {
-  const { searchParams } = new URL(req.url, ORIGIN);
-  const code  = searchParams.get('code');
-  const state = searchParams.get('state');
+  const host = req.headers['x-forwarded-host'] || req.headers['host'] || '';
+  const proto = req.headers['x-forwarded-proto'] || 'https';
+  const baseUrl = `${proto}://${host}`;
 
-  // ── Step 1: Redirect to GitHub to request authorization ──────────
+  const url = new URL(req.url, baseUrl);
+  const code  = url.searchParams.get('code');
+  const state = url.searchParams.get('state');
+
+  // Always use the fixed ORIGIN for redirect_uri so it matches GitHub OAuth App settings
+  const CALLBACK = `${ORIGIN}/api/auth`;
+
+  // ── Step 1: Redirect to GitHub ──────────────────────────────────
   if (!code) {
     const params = new URLSearchParams({
       client_id:    GITHUB_CLIENT_ID,
       scope:        'repo,user',
-      state:        state || crypto.randomUUID(),
-      redirect_uri: `${ORIGIN}/api/auth`,
+      redirect_uri: CALLBACK,
     });
+    if (state) params.set('state', state);
     return res.redirect(302, `https://github.com/login/oauth/authorize?${params}`);
   }
 
-  // ── Step 2: Exchange code for access token ────────────────────────
+  // ── Step 2: Exchange code for access token ──────────────────────
   try {
     const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
       method:  'POST',
@@ -37,44 +43,46 @@ export default async function handler(req, res) {
         client_id:     GITHUB_CLIENT_ID,
         client_secret: GITHUB_CLIENT_SECRET,
         code,
+        redirect_uri:  CALLBACK,
       }),
     });
 
     const tokenData = await tokenRes.json();
 
     if (tokenData.error) {
+      res.setHeader('Content-Type', 'text/html');
       return res.status(401).send(`
-        <script>
-          window.opener.postMessage(
-            'authorization:github:error:${JSON.stringify(tokenData.error)}',
+        <!doctype html><html><body><script>
+          window.opener && window.opener.postMessage(
+            'authorization:github:error:' + JSON.stringify("${tokenData.error_description || tokenData.error}"),
             '*'
           );
-        </script>
+          window.close();
+        </script><p>Auth error: ${tokenData.error_description || tokenData.error}</p></body></html>
       `);
     }
 
-    // ── Step 3: Post token back to Decap CMS via postMessage ─────────
+    // ── Step 3: Return token to Decap CMS via postMessage ───────────
+    const token = tokenData.access_token;
     res.setHeader('Content-Type', 'text/html');
     return res.status(200).send(`
-      <!doctype html>
-      <html><body>
-        <script>
-          (function() {
-            function receiveMessage(e) {
-              window.opener.postMessage(
-                'authorization:github:success:${JSON.stringify({ token: tokenData.access_token, provider: 'github' })}',
-                e.origin
-              );
-            }
-            window.addEventListener('message', receiveMessage, false);
-            window.opener.postMessage('authorizing:github', '*');
-          })();
-        </script>
-        <p>Authorizing… you can close this window.</p>
-      </body></html>
+      <!doctype html><html><body><script>
+        (function() {
+          const token = ${JSON.stringify(token)};
+          const msg = 'authorization:github:success:' + JSON.stringify({ token, provider: 'github' });
+          function receiveMessage(e) {
+            window.opener.postMessage(msg, e.origin);
+          }
+          window.addEventListener('message', receiveMessage, false);
+          window.opener && window.opener.postMessage('authorizing:github', '*');
+        })();
+      </script><p>Authorizing… you may close this window.</p></body></html>
     `);
   } catch (err) {
     console.error('OAuth error:', err);
-    return res.status(500).send('Authentication failed. Please try again.');
+    res.setHeader('Content-Type', 'text/html');
+    return res.status(500).send(`
+      <!doctype html><html><body><p>Authentication failed: ${err.message}</p></body></html>
+    `);
   }
 }
