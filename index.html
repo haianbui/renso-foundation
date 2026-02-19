@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Renso Foundation – Connecting Communities. Creating Impact.</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* ===================== RESET & BASE ===================== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --primary:#1B3A6B;
+  --primary-light:#254d8e;
+  --secondary:#F4A623;
+  --secondary-dark:#d4891a;
+  --accent:#2A9D8F;
+  --accent-light:#3ab5a6;
+  --bg-light:#F8F9FA;
+  --text:#2D3748;
+  --text-light:#718096;
+  --white:#ffffff;
+  --border:#e2e8f0;
+  --shadow:0 4px 24px rgba(27,58,107,0.10);
+  --shadow-lg:0 8px 40px rgba(27,58,107,0.16);
+  --radius:12px;
+  --radius-lg:20px;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);line-height:1.6;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Playfair Display',serif;line-height:1.25}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+ul{list-style:none}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.section-padding{padding:96px 0}
+.section-tag{display:inline-block;background:rgba(244,166,35,0.12);color:var(--secondary-dark);font-weight:700;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;padding:6px 16px;border-radius:50px;margin-bottom:16px}
+.section-title{font-size:clamp(1.8rem,4vw,2.8rem);color:var(--primary);margin-bottom:16px}
+.section-subtitle{font-size:1.05rem;color:var(--text-light);max-width:600px}
+.section-header{text-align:center;margin-bottom:64px}
+.section-header .section-subtitle{margin:0 auto}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;border-radius:50px;font-weight:600;font-size:.95rem;cursor:pointer;border:none;transition:all .3s ease;font-family:'Inter',sans-serif}
+.btn-primary{background:var(--secondary);color:var(--white)}
+.btn-primary:hover{background:var(--secondary-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(244,166,35,.4)}
+.btn-outline{background:transparent;color:var(--white);border:2px solid rgba(255,255,255,.6)}
+.btn-outline:hover{background:rgba(255,255,255,.15);transform:translateY(-2px)}
+.btn-dark{background:var(--primary);color:var(--white)}
+.btn-dark:hover{background:var(--primary-light);transform:translateY(-2px);box-shadow:0 8px 24px rgba(27,58,107,.3)}
+.btn-accent{background:var(--accent);color:var(--white)}
+.btn-accent:hover{background:var(--accent-light);transform:translateY(-2px)}
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+.fade-in-left{opacity:0;transform:translateX(-40px);transition:opacity .7s ease,transform .7s ease}
+.fade-in-left.visible{opacity:1;transform:translateX(0)}
+.fade-in-right{opacity:0;transform:translateX(40px);transition:opacity .7s ease,transform .7s ease}
+.fade-in-right.visible{opacity:1;transform:translateX(0)}
+
+/* ===================== NAVBAR ===================== */
+#navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0;transition:all .3s ease}
+#navbar.scrolled{background:var(--white);box-shadow:0 2px 20px rgba(27,58,107,.12)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+.nav-logo{display:flex;align-items:center;gap:12px}
+.nav-logo-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--primary),var(--accent));border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--white);font-size:1.2rem;font-weight:800;font-family:'Playfair Display',serif;flex-shrink:0}
+.nav-logo-text{display:flex;flex-direction:column;line-height:1.1}
+.nav-logo-name{font-family:'Playfair Display',serif;font-weight:700;font-size:1.1rem;color:var(--white);transition:color .3s}
+.nav-logo-tagline{font-size:.65rem;color:rgba(255,255,255,.7);letter-spacing:.08em;transition:color .3s}
+#navbar.scrolled .nav-logo-name{color:var(--primary)}
+#navbar.scrolled .nav-logo-tagline{color:var(--text-light)}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a{padding:8px 13px;border-radius:8px;font-size:.88rem;font-weight:500;color:rgba(255,255,255,.88);transition:all .3s}
+.nav-links a:hover{background:rgba(255,255,255,.15);color:var(--white)}
+#navbar.scrolled .nav-links a{color:var(--text)}
+#navbar.scrolled .nav-links a:hover{background:var(--bg-light);color:var(--primary)}
+.nav-donate{background:var(--secondary)!important;color:var(--white)!important;border-radius:50px!important;padding:9px 22px!important;font-weight:700!important}
+.nav-donate:hover{background:var(--secondary-dark)!important;transform:translateY(-1px)}
+#navbar.scrolled .nav-donate{color:var(--white)!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;border:none;background:none}
+.hamburger span{display:block;width:24px;height:2px;background:var(--white);border-radius:2px;transition:all .3s}
+#navbar.scrolled .hamburger span{background:var(--primary)}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:var(--white);box-shadow:0 8px 32px rgba(27,58,107,.15);padding:16px 0;z-index:999}
+.mobile-menu.open{display:block}
+.mobile-menu a{display:block;padding:13px 28px;color:var(--text);font-weight:500;font-size:.95rem;border-bottom:1px solid var(--border);transition:all .2s}
+.mobile-menu a:hover{background:var(--bg-light);color:var(--primary);padding-left:36px}
+
+/* ===================== HERO ===================== */
+#home{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;background:linear-gradient(135deg,#0d2244 0%,var(--primary) 40%,#1a5c52 100%)}
+.hero-bg-pattern{position:absolute;inset:0;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-maple{position:absolute;right:-80px;top:50%;transform:translateY(-50%);font-size:400px;color:rgba(255,255,255,.03);pointer-events:none;user-select:none}
+.hero-circles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.hero-circle{position:absolute;border-radius:50%;background:rgba(255,255,255,.04)}
+.hero-circle-1{width:600px;height:600px;top:-200px;right:-150px}
+.hero-circle-2{width:400px;height:400px;bottom:-100px;left:-100px}
+.hero-circle-3{width:200px;height:200px;top:30%;left:30%;background:rgba(244,166,35,.08)}
+.hero-content{position:relative;z-index:2;text-align:center;padding:120px 24px 80px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.9);padding:8px 20px;border-radius:50px;font-size:.82rem;font-weight:600;letter-spacing:.06em;margin-bottom:28px;backdrop-filter:blur(10px)}
+.hero-badge i{color:var(--secondary)}
+.hero-title{font-size:clamp(2.2rem,6vw,4.2rem);color:var(--white);margin-bottom:12px;font-weight:700}
+.hero-title span{color:var(--secondary)}
+.hero-subtitle-small{font-size:1.1rem;color:rgba(255,255,255,.65);font-family:'Inter',sans-serif;font-weight:400;margin-bottom:28px;letter-spacing:.02em}
+.hero-description{font-size:1.08rem;color:rgba(255,255,255,.78);max-width:680px;margin:0 auto 44px;line-height:1.75}
+.hero-ctas{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:72px}
+.hero-stats{display:flex;gap:32px;justify-content:center;flex-wrap:wrap}
+.hero-stat{text-align:center;padding:20px 28px;background:rgba(255,255,255,.08);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);border-radius:16px;min-width:140px}
+.hero-stat-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--secondary);display:block;line-height:1}
+.hero-stat-label{font-size:.78rem;color:rgba(255,255,255,.7);margin-top:4px;letter-spacing:.04em}
+.scroll-indicator{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,.5);font-size:.75rem;animation:bounce 2s infinite}
+.scroll-indicator i{font-size:1.2rem}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+
+/* ===================== IMPACT NUMBERS ===================== */
+#impact{background:var(--bg-light);padding:80px 0}
+.impact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.impact-card{background:var(--white);border-radius:var(--radius-lg);padding:36px 28px;text-align:center;box-shadow:var(--shadow);transition:all .3s;border-bottom:4px solid transparent}
+.impact-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-bottom-color:var(--secondary)}
+.impact-card-icon{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto 16px}
+.ic-blue{background:rgba(27,58,107,.1);color:var(--primary)}
+.ic-gold{background:rgba(244,166,35,.1);color:var(--secondary-dark)}
+.ic-teal{background:rgba(42,157,143,.1);color:var(--accent)}
+.ic-rose{background:rgba(229,57,53,.08);color:#e53935}
+.impact-num{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:700;color:var(--primary);line-height:1}
+.impact-label{font-size:.9rem;color:var(--text-light);margin-top:8px;font-weight:500}
+
+/* ===================== MISSION/VISION ===================== */
+#about-snapshot{padding:96px 0;background:var(--white)}
+.mv-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:48px}
+.mv-card{border-radius:var(--radius-lg);padding:48px;position:relative;overflow:hidden}
+.mv-card-mission{background:linear-gradient(135deg,var(--primary),var(--primary-light))}
+.mv-card-vision{background:linear-gradient(135deg,var(--accent),var(--accent-light))}
+.mv-card-deco{position:absolute;right:-30px;bottom:-30px;font-size:120px;opacity:.07;color:var(--white)}
+.mv-icon{width:56px;height:56px;background:rgba(255,255,255,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--white);margin-bottom:20px}
+.mv-label{font-size:.78rem;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.65);text-transform:uppercase;margin-bottom:10px}
+.mv-title{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--white);margin-bottom:16px}
+.mv-text{color:rgba(255,255,255,.82);line-height:1.8;font-size:.97rem}
+
+/* ===================== PROGRAMS ===================== */
+#programs{background:var(--bg-light);padding:96px 0}
+.programs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+.prog-card{background:var(--white);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);transition:all .35s}
+.prog-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg)}
+.prog-card-header{padding:32px 32px 24px;position:relative}
+.prog-card-header::before{content:'';position:absolute;inset:0;opacity:.06}
+.ph-blue .prog-card-header{background:linear-gradient(135deg,var(--primary),var(--primary-light))}
+.ph-gold .prog-card-header{background:linear-gradient(135deg,#d4891a,var(--secondary))}
+.ph-teal .prog-card-header{background:linear-gradient(135deg,var(--accent),var(--accent-light))}
+.ph-purple .prog-card-header{background:linear-gradient(135deg,#6b46c1,#805ad5)}
+.prog-icon{width:52px;height:52px;background:rgba(255,255,255,.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:var(--white);margin-bottom:14px}
+.prog-title{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--white);font-weight:700}
+.prog-card-body{padding:24px 32px 32px}
+.prog-desc{color:var(--text-light);font-size:.93rem;line-height:1.7;margin-bottom:20px}
+.prog-tags{display:flex;flex-wrap:wrap;gap:8px}
+.prog-tag{background:var(--bg-light);color:var(--text);font-size:.78rem;font-weight:600;padding:5px 12px;border-radius:50px;border:1px solid var(--border)}
+
+/* ===================== VALUES ===================== */
+#values{background:var(--white);padding:96px 0}
+.values-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
+.val-card{background:var(--bg-light);border-radius:var(--radius-lg);padding:32px 20px;text-align:center;transition:all .3s;border:2px solid transparent;cursor:default}
+.val-card:hover{background:var(--white);border-color:var(--secondary);box-shadow:var(--shadow-lg);transform:translateY(-6px)}
+.val-icon{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 16px;transition:all .3s}
+.vi-1{background:rgba(27,58,107,.1);color:var(--primary)}
+.vi-2{background:rgba(42,157,143,.1);color:var(--accent)}
+.vi-3{background:rgba(244,166,35,.1);color:var(--secondary-dark)}
+.vi-4{background:rgba(229,57,53,.08);color:#e53935}
+.vi-5{background:rgba(107,70,193,.1);color:#6b46c1}
+.val-card:hover .val-icon{transform:scale(1.1)}
+.val-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--primary);margin-bottom:10px;font-weight:700}
+.val-desc{font-size:.83rem;color:var(--text-light);line-height:1.6}
+
+/* ===================== EVENTS ===================== */
+#events{background:linear-gradient(135deg,#0d2244,var(--primary));padding:96px 0}
+#events .section-title{color:var(--white)}
+#events .section-tag{background:rgba(244,166,35,.2);color:var(--secondary)}
+#events .section-subtitle{color:rgba(255,255,255,.7)}
+.events-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.event-card{background:rgba(255,255,255,.07);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-lg);overflow:hidden;transition:all .35s}
+.event-card:hover{background:rgba(255,255,255,.12);transform:translateY(-6px)}
+.event-date-band{background:var(--secondary);padding:12px 20px;display:flex;align-items:center;gap:12px}
+.event-date-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--white);line-height:1}
+.event-date-info{display:flex;flex-direction:column}
+.event-date-month{font-size:.75rem;font-weight:700;color:rgba(255,255,255,.9);text-transform:uppercase;letter-spacing:.1em}
+.event-date-year{font-size:.75rem;color:rgba(255,255,255,.75)}
+.event-card-body{padding:24px}
+.event-type{font-size:.75rem;font-weight:700;color:var(--secondary);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.event-title{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--white);margin-bottom:12px}
+.event-desc{font-size:.88rem;color:rgba(255,255,255,.7);line-height:1.65;margin-bottom:20px}
+.event-meta{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.event-meta span{display:flex;align-items:center;gap:6px;font-size:.8rem;color:rgba(255,255,255,.6)}
+.event-meta i{color:var(--secondary);font-size:.85rem}
+
+/* ===================== ABOUT / BOARD ===================== */
+#about{background:var(--bg-light);padding:96px 0}
+.about-story{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-bottom:80px}
+.about-story-img{position:relative}
+.about-story-visual{background:linear-gradient(135deg,var(--primary),var(--accent));border-radius:var(--radius-lg);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:5rem;color:rgba(255,255,255,.3)}
+.about-story-badge{position:absolute;bottom:-20px;right:-20px;background:var(--secondary);color:var(--white);border-radius:var(--radius);padding:20px;text-align:center;box-shadow:var(--shadow-lg)}
+.asb-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;line-height:1}
+.asb-label{font-size:.75rem;font-weight:600;opacity:.9}
+.about-story-content .section-tag{display:block;margin-bottom:12px}
+.about-story-text{color:var(--text-light);line-height:1.85;margin-bottom:20px;font-size:.97rem}
+.board-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.board-card{background:var(--white);border-radius:var(--radius-lg);padding:36px 28px;text-align:center;box-shadow:var(--shadow);transition:all .3s}
+.board-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.board-avatar{width:90px;height:90px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--white)}
+.ba-1{background:linear-gradient(135deg,var(--primary),var(--accent))}
+.ba-2{background:linear-gradient(135deg,var(--secondary-dark),var(--secondary))}
+.ba-3{background:linear-gradient(135deg,var(--accent),#1a5c52)}
+.board-name{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--primary);margin-bottom:4px}
+.board-role{font-size:.82rem;font-weight:700;color:var(--secondary-dark);letter-spacing:.05em;text-transform:uppercase;margin-bottom:12px}
+.board-bio{font-size:.87rem;color:var(--text-light);line-height:1.65}
+.board-socials{margin-top:16px;display:flex;justify-content:center;gap:10px}
+.board-socials a{width:32px;height:32px;border-radius:50%;background:var(--bg-light);display:flex;align-items:center;justify-content:center;color:var(--text-light);font-size:.85rem;transition:all .25s}
+.board-socials a:hover{background:var(--primary);color:var(--white)}
+
+/* ===================== GET INVOLVED ===================== */
+#get-involved{background:var(--white);padding:96px 0}
+.involved-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.inv-card{border-radius:var(--radius-lg);padding:36px 24px;text-align:center;transition:all .35s;border:2px solid var(--border)}
+.inv-card:hover{border-color:var(--secondary);box-shadow:var(--shadow-lg);transform:translateY(-6px)}
+.inv-icon{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 20px}
+.ii-1{background:rgba(27,58,107,.08);color:var(--primary)}
+.ii-2{background:rgba(42,157,143,.08);color:var(--accent)}
+.ii-3{background:rgba(244,166,35,.12);color:var(--secondary-dark)}
+.ii-4{background:rgba(107,70,193,.08);color:#6b46c1}
+.inv-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--primary);margin-bottom:12px}
+.inv-desc{font-size:.87rem;color:var(--text-light);line-height:1.65;margin-bottom:24px}
+
+/* ===================== DONATE ===================== */
+#donate{background:linear-gradient(135deg,#0d2244,var(--primary) 50%,#1a5c52);padding:96px 0}
+#donate .section-title{color:var(--white)}
+#donate .section-tag{background:rgba(244,166,35,.2);color:var(--secondary)}
+#donate .section-subtitle{color:rgba(255,255,255,.7)}
+.donate-wrapper{display:grid;grid-template-columns:1fr 1.2fr;gap:48px;align-items:start;margin-top:48px}
+.donate-why h3{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--white);margin-bottom:20px}
+.donate-why-list{display:flex;flex-direction:column;gap:16px}
+.dw-item{display:flex;align-items:flex-start;gap:14px}
+.dw-icon{width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:var(--secondary);font-size:1rem;flex-shrink:0}
+.dw-text strong{display:block;color:var(--white);font-size:.95rem;margin-bottom:2px}
+.dw-text span{color:rgba(255,255,255,.65);font-size:.85rem}
+.donate-card{background:var(--white);border-radius:var(--radius-lg);padding:40px;box-shadow:var(--shadow-lg)}
+.donate-tabs{display:flex;background:var(--bg-light);border-radius:50px;padding:4px;margin-bottom:28px}
+.donate-tab{flex:1;padding:10px;text-align:center;border-radius:50px;cursor:pointer;font-weight:600;font-size:.9rem;color:var(--text-light);transition:all .25s;border:none;background:none;font-family:'Inter',sans-serif}
+.donate-tab.active{background:var(--primary);color:var(--white)}
+.donate-amounts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.donate-amount-btn{padding:12px 8px;border:2px solid var(--border);border-radius:10px;text-align:center;cursor:pointer;font-weight:700;font-size:1rem;color:var(--text);background:var(--white);transition:all .25s;font-family:'Inter',sans-serif}
+.donate-amount-btn:hover,.donate-amount-btn.active{border-color:var(--primary);background:var(--primary);color:var(--white)}
+.donate-custom{width:100%;padding:14px 16px;border:2px solid var(--border);border-radius:10px;font-size:1rem;font-family:'Inter',sans-serif;color:var(--text);margin-bottom:16px;outline:none;transition:border-color .25s}
+.donate-custom:focus{border-color:var(--primary)}
+.donate-label{font-size:.85rem;font-weight:600;color:var(--text);margin-bottom:10px;display:block}
+.donate-fund-select{width:100%;padding:13px 16px;border:2px solid var(--border);border-radius:10px;font-size:.93rem;font-family:'Inter',sans-serif;color:var(--text);margin-bottom:24px;outline:none;background:var(--white);cursor:pointer}
+.donate-btn-main{width:100%;padding:16px;background:var(--secondary);color:var(--white);border:none;border-radius:50px;font-size:1.05rem;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;justify-content:center;gap:10px;transition:all .3s}
+.donate-btn-main:hover{background:var(--secondary-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(244,166,35,.4)}
+.donate-note{margin-top:16px;text-align:center;font-size:.8rem;color:var(--text-light);display:flex;align-items:center;justify-content:center;gap:6px}
+.donate-note i{color:var(--accent)}
+.donate-matching{margin-top:20px;background:rgba(42,157,143,.08);border:1px solid rgba(42,157,143,.2);border-radius:12px;padding:16px;display:flex;align-items:flex-start;gap:12px}
+.dm-icon{color:var(--accent);font-size:1.1rem;margin-top:2px;flex-shrink:0}
+.dm-text{font-size:.84rem;color:var(--text)}
+.dm-text strong{color:var(--accent)}
+
+/* ===================== NEWS ===================== */
+#news{background:var(--bg-light);padding:96px 0}
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.news-card{background:var(--white);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);transition:all .35s}
+.news-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.news-thumb{height:200px;display:flex;align-items:center;justify-content:center;font-size:3rem;color:rgba(255,255,255,.4)}
+.nt-1{background:linear-gradient(135deg,var(--primary),var(--accent))}
+.nt-2{background:linear-gradient(135deg,var(--secondary-dark),var(--secondary))}
+.nt-3{background:linear-gradient(135deg,#6b46c1,#805ad5)}
+.news-card-body{padding:24px}
+.news-cat{font-size:.73rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--secondary-dark);margin-bottom:10px}
+.news-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--primary);margin-bottom:10px;line-height:1.35}
+.news-excerpt{font-size:.87rem;color:var(--text-light);line-height:1.65;margin-bottom:18px}
+.news-footer{display:flex;align-items:center;justify-content:space-between}
+.news-date{font-size:.78rem;color:var(--text-light);display:flex;align-items:center;gap:5px}
+.news-read{font-size:.82rem;font-weight:600;color:var(--primary);display:flex;align-items:center;gap:4px;transition:gap .2s}
+.news-read:hover{gap:8px;color:var(--accent)}
+
+/* ===================== TRANSPARENCY ===================== */
+#transparency{background:var(--white);padding:96px 0}
+.trans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px}
+.trans-card{border-radius:var(--radius-lg);padding:32px;border:2px solid var(--border);transition:all .3s}
+.trans-card:hover{border-color:var(--accent);box-shadow:var(--shadow)}
+.trans-card-icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:16px}
+.ti-1{background:rgba(27,58,107,.08);color:var(--primary)}
+.ti-2{background:rgba(42,157,143,.08);color:var(--accent)}
+.ti-3{background:rgba(244,166,35,.1);color:var(--secondary-dark)}
+.trans-card-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--primary);margin-bottom:10px}
+.trans-card-text{font-size:.87rem;color:var(--text-light);line-height:1.65;margin-bottom:16px}
+.trans-link{font-size:.85rem;font-weight:600;color:var(--accent);display:inline-flex;align-items:center;gap:5px;transition:gap .2s}
+.trans-link:hover{gap:10px}
+.cra-band{background:linear-gradient(135deg,var(--primary),var(--primary-light));border-radius:var(--radius-lg);padding:40px;display:flex;align-items:center;justify-content:space-between;gap:32px}
+.cra-text h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--white);margin-bottom:8px}
+.cra-text p{color:rgba(255,255,255,.75);font-size:.92rem;line-height:1.65}
+.cra-info{display:flex;flex-direction:column;gap:8px;flex-shrink:0}
+.cra-badge{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:10px 20px;color:var(--white);font-weight:600;font-size:.88rem;display:flex;align-items:center;gap:8px}
+.cra-badge i{color:var(--secondary)}
+
+/* ===================== CONTACT ===================== */
+#contact{background:var(--bg-light);padding:96px 0}
+.contact-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:48px;align-items:start}
+.contact-info-cards{display:flex;flex-direction:column;gap:20px}
+.ci-card{background:var(--white);border-radius:var(--radius);padding:24px;display:flex;align-items:flex-start;gap:16px;box-shadow:var(--shadow)}
+.ci-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.cii-blue{background:rgba(27,58,107,.08);color:var(--primary)}
+.cii-teal{background:rgba(42,157,143,.08);color:var(--accent)}
+.cii-gold{background:rgba(244,166,35,.1);color:var(--secondary-dark)}
+.ci-card-title{font-weight:700;font-size:.9rem;color:var(--primary);margin-bottom:4px}
+.ci-card-text{font-size:.87rem;color:var(--text-light);line-height:1.5}
+.contact-form-wrap{background:var(--white);border-radius:var(--radius-lg);padding:40px;box-shadow:var(--shadow)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:.85rem;font-weight:600;color:var(--text);margin-bottom:6px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:13px 16px;border:2px solid var(--border);border-radius:10px;font-size:.93rem;font-family:'Inter',sans-serif;color:var(--text);outline:none;transition:border-color .25s;background:var(--white)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--primary)}
+.form-group textarea{resize:vertical;min-height:130px}
+.form-submit{width:100%;padding:15px;background:var(--primary);color:var(--white);border:none;border-radius:50px;font-size:1rem;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;justify-content:center;gap:10px;transition:all .3s;margin-top:8px}
+.form-submit:hover{background:var(--primary-light);transform:translateY(-2px);box-shadow:0 8px 24px rgba(27,58,107,.3)}
+
+/* ===================== FOOTER ===================== */
+footer{background:#0d1f3c;color:var(--white);padding:72px 0 0}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.08)}
+.footer-brand .nav-logo{margin-bottom:16px}
+.footer-tagline{color:rgba(255,255,255,.55);font-size:.88rem;line-height:1.7;margin-bottom:24px}
+.footer-social{display:flex;gap:10px}
+.fs-link{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.6);font-size:.9rem;transition:all .25s}
+.fs-link:hover{background:var(--secondary);color:var(--white)}
+.footer-col-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--white);margin-bottom:20px;font-weight:700}
+.footer-links{display:flex;flex-direction:column;gap:10px}
+.footer-links a{color:rgba(255,255,255,.55);font-size:.88rem;transition:all .2s;display:flex;align-items:center;gap:6px}
+.footer-links a:hover{color:var(--secondary);padding-left:4px}
+.footer-links a i{font-size:.65rem;opacity:.6}
+.footer-bottom{padding:20px 0;display:flex;align-items:center;justify-content:space-between}
+.footer-copy{color:rgba(255,255,255,.4);font-size:.82rem}
+.footer-bottom-links{display:flex;gap:20px}
+.footer-bottom-links a{color:rgba(255,255,255,.4);font-size:.82rem;transition:color .2s}
+.footer-bottom-links a:hover{color:var(--secondary)}
+.canada-maple{color:rgba(244,166,35,.25);margin:0 4px}
+
+/* ===================== RESPONSIVE ===================== */
+@media(max-width:1024px){
+  .values-grid{grid-template-columns:repeat(3,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .footer-grid>:first-child{grid-column:span 2}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .hero-stats{gap:16px}
+  .hero-stat{min-width:120px;padding:16px 18px}
+  .impact-grid{grid-template-columns:repeat(2,1fr)}
+  .mv-grid{grid-template-columns:1fr}
+  .programs-grid{grid-template-columns:1fr}
+  .values-grid{grid-template-columns:repeat(2,1fr)}
+  .events-grid{grid-template-columns:1fr}
+  .about-story{grid-template-columns:1fr;gap:40px}
+  .about-story-badge{right:20px}
+  .board-grid{grid-template-columns:1fr}
+  .involved-grid{grid-template-columns:repeat(2,1fr)}
+  .donate-wrapper{grid-template-columns:1fr}
+  .news-grid{grid-template-columns:1fr}
+  .trans-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .cra-band{flex-direction:column}
+  .form-row{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr;gap:32px}
+  .footer-grid>:first-child{grid-column:auto}
+  .footer-bottom{flex-direction:column;gap:12px;text-align:center}
+  .donate-amounts{grid-template-columns:repeat(2,1fr)}
+  .section-padding{padding:64px 0}
+}
+@media(max-width:480px){
+  .impact-grid{grid-template-columns:1fr}
+  .values-grid{grid-template-columns:1fr}
+  .involved-grid{grid-template-columns:1fr}
+  .hero-ctas{flex-direction:column;align-items:center}
+  .hero-ctas .btn{width:220px;justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== NAVBAR ===================== -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#home" class="nav-logo">
+        <div class="nav-logo-icon">R</div>
+        <div class="nav-logo-text">
+          <span class="nav-logo-name">Renso Foundation</span>
+          <span class="nav-logo-tagline">Connecting Communities</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#programs">Programs</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#get-involved">Get Involved</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#transparency">Transparency</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#donate" class="nav-donate">Donate <i class="fa-solid fa-heart"></i></a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home" class="mobile-link">Home</a>
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#programs" class="mobile-link">Programs</a>
+  <a href="#events" class="mobile-link">Events</a>
+  <a href="#get-involved" class="mobile-link">Get Involved</a>
+  <a href="#news" class="mobile-link">News &amp; Impact</a>
+  <a href="#transparency" class="mobile-link">Transparency</a>
+  <a href="#contact" class="mobile-link">Contact</a>
+  <a href="#donate" class="mobile-link" style="color:var(--secondary);font-weight:700;">Donate Now</a>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<section id="home">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-circles">
+    <div class="hero-circle hero-circle-1"></div>
+    <div class="hero-circle hero-circle-2"></div>
+    <div class="hero-circle hero-circle-3"></div>
+  </div>
+  <div class="hero-maple">&#127809;</div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fa-solid fa-seedling"></i>
+        <span>Canadian Non-Profit Organization &bull; Est. 2018</span>
+      </div>
+      <h1 class="hero-title">Connecting Communities.<br><span>Creating Impact.</span></h1>
+      <p class="hero-subtitle-small">Renso Foundation &mdash; Multicultural Non-Profit, Canada</p>
+      <p class="hero-description">We empower individuals and strengthen communities across Canada through leadership development, economic opportunity, cultural connection, and compassionate healthcare initiatives.</p>
+      <div class="hero-ctas">
+        <a href="#donate" class="btn btn-primary"><i class="fa-solid fa-heart"></i> Donate Now</a>
+        <a href="#get-involved" class="btn btn-outline"><i class="fa-solid fa-hands-holding-circle"></i> Get Involved</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-num" data-count="5000">0</span>
+          <div class="hero-stat-label">Lives Impacted</div>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num" data-count="12">0</span>
+          <div class="hero-stat-label">Active Programs</div>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num" data-count="200">0</span>
+          <div class="hero-stat-label">Volunteers</div>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num" data-count="500">0</span>
+          <div class="hero-stat-label">K+ Raised</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <i class="fa-solid fa-chevron-down"></i>
+  </div>
+</section>
+
+<!-- ===================== IMPACT NUMBERS ===================== -->
+<section id="impact">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-tag">Our Impact</span>
+      <h2 class="section-title">Making a Difference, Every Day</h2>
+      <p class="section-subtitle">Since our founding, we have touched thousands of lives across Canada's diverse communities.</p>
+    </div>
+    <div class="impact-grid">
+      <div class="impact-card fade-in">
+        <div class="impact-card-icon ic-blue"><i class="fa-solid fa-users"></i></div>
+        <div class="impact-num" data-count="5000">0</div>
+        <div class="impact-label">Lives Impacted</div>
+      </div>
+      <div class="impact-card fade-in">
+        <div class="impact-card-icon ic-gold"><i class="fa-solid fa-diagram-project"></i></div>
+        <div class="impact-num" data-count="12">0</div>
+        <div class="impact-label">Active Programs</div>
+      </div>
+      <div class="impact-card fade-in">
+        <div class="impact-card-icon ic-teal"><i class="fa-solid fa-hand-holding-heart"></i></div>
+        <div class="impact-num" data-count="200">0</div>
+        <div class="impact-label">Dedicated Volunteers</div>
+      </div>
+      <div class="impact-card fade-in">
+        <div class="impact-card-icon ic-rose"><i class="fa-solid fa-dollar-sign"></i></div>
+        <div class="impact-num" data-count="500">0</div>
+        <div class="impact-label">K+ Dollars Raised</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MISSION / VISION ===================== -->
+<section id="about-snapshot">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-tag">Who We Are</span>
+      <h2 class="section-title">Driven by Purpose, Guided by Values</h2>
+      <p class="section-subtitle">Renso Foundation is built on a clear mission and bold vision to transform lives across Canada.</p>
+    </div>
+    <div class="mv-grid">
+      <div class="mv-card mv-card-mission fade-in-left">
+        <div class="mv-card-deco"><i class="fa-solid fa-bullseye"></i></div>
+        <div class="mv-icon"><i class="fa-solid fa-rocket"></i></div>
+        <div class="mv-label">Our Mission</div>
+        <h3 class="mv-title">Empowering People, Strengthening Communities</h3>
+        <p class="mv-text">Renso Foundation is a multicultural non-profit organization dedicated to empowering individuals and strengthening communities across Canada through leadership development, economic opportunity, cultural connection, and compassionate healthcare initiatives. We believe every person deserves the tools and support to thrive.</p>
+      </div>
+      <div class="mv-card mv-card-vision fade-in-right">
+        <div class="mv-card-deco"><i class="fa-solid fa-eye"></i></div>
+        <div class="mv-icon"><i class="fa-solid fa-star"></i></div>
+        <div class="mv-label">Our Vision</div>
+        <h3 class="mv-title">A Nationally Recognized Force for Change</h3>
+        <p class="mv-text">To become a nationally recognized foundation that bridges diverse communities, inspires civic leadership, and creates measurable social impact in Canada. We envision a country where cultural diversity is celebrated as our greatest strength, and every community has the resources to flourish and lead.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROGRAMS ===================== -->
+<section id="programs">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-tag">Our Programs</span>
+      <h2 class="section-title">Programs Built to Uplift</h2>
+      <p class="section-subtitle">Four pillars of impact, hundreds of lives changed. Explore how we create lasting change across Canada.</p>
+    </div>
+    <div class="programs-grid">
+      <div class="prog-card ph-blue fade-in-left">
+        <div class="prog-card-header">
+          <div class="prog-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+          <h3 class="prog-title">Healthcare &amp; Compassion</h3>
+        </div>
+        <div class="prog-card-body">
+          <p class="prog-desc">We partner with hospitals, community health centres, and mental wellness organizations to fund critical care, raise awareness, and bring compassionate support directly to those who need it most. No one should navigate a health crisis without community backing.</p>
+          <div class="prog-tags">
+            <span class="prog-tag"><i class="fa-solid fa-hospital"></i> Hospital Fundraising</span>
+            <span class="prog-tag"><i class="fa-solid fa-brain"></i> Mental Health Awareness</span>
+            <span class="prog-tag"><i class="fa-solid fa-user-nurse"></i> Senior Care Support</span>
+          </div>
+        </div>
+      </div>
+      <div class="prog-card ph-gold fade-in-right">
+        <div class="prog-card-header">
+          <div class="prog-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <h3 class="prog-title">Economic Empowerment</h3>
+        </div>
+        <div class="prog-card-body">
+          <p class="prog-desc">We fuel entrepreneurship within immigrant and multicultural communities. From our Business Accelerator bootcamps to one-on-one mentorship sessions, we give aspiring founders the skills, networks, and capital access they need to build thriving businesses in Canada.</p>
+          <div class="prog-tags">
+            <span class="prog-tag"><i class="fa-solid fa-rocket"></i> Business Accelerator</span>
+            <span class="prog-tag"><i class="fa-solid fa-handshake"></i> Entrepreneur Support</span>
+            <span class="prog-tag"><i class="fa-solid fa-coins"></i> Micro-Grant Access</span>
+          </div>
+        </div>
+      </div>
+      <div class="prog-card ph-teal fade-in-left">
+        <div class="prog-card-header">
+          <div class="prog-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+          <h3 class="prog-title">Education &amp; Leadership</h3>
+        </div>
+        <div class="prog-card-body">
+          <p class="prog-desc">We invest in the next generation of Canadian leaders. Through scholarship funding, youth leadership camps, and civic engagement programs, we help young people find their voice, build confidence, and step into positions of positive influence in their communities.</p>
+          <div class="prog-tags">
+            <span class="prog-tag"><i class="fa-solid fa-award"></i> Annual Scholarships</span>
+            <span class="prog-tag"><i class="fa-solid fa-person-chalkboard"></i> Youth Leadership Camp</span>
+            <span class="prog-tag"><i class="fa-solid fa-landmark"></i> Civic Engagement</span>
+          </div>
+        </div>
+      </div>
+      <div class="prog-card ph-purple fade-in-right">
+        <div class="prog-card-header">
+          <div class="prog-icon"><i class="fa-solid fa-masks-theater"></i></div>
+          <h3 class="prog-title">Community &amp; Cultural Events</h3>
+        </div>
+        <div class="prog-card-body">
+          <p class="prog-desc">Culture is the heartbeat of community. We organize signature events that celebrate diversity, foster cross-cultural friendships, and raise funds for our programs. These events are where Canada's multicultural spirit truly shines.</p>
+          <div class="prog-tags">
+            <span class="prog-tag"><i class="fa-solid fa-music"></i> Garden Music Show</span>
+            <span class="prog-tag"><i class="fa-solid fa-moon"></i> Mid-Autumn Festival</span>
+            <span class="prog-tag"><i class="fa-solid fa-champagne-glasses"></i> New Year Gala</span>
+            <span class="prog-tag"><i class="fa-solid fa-heart"></i> Singles for a Cause</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== VALUES ===================== -->
+<section id="values">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-tag">Core Values</span>
+      <h2 class="section-title">The Principles That Guide Us</h2>
+      <p class="section-subtitle">Five values form the foundation of every decision, program, and relationship at Renso Foundation.</p>
+    </div>
+    <div class="values-grid">
+      <div class="val-card fade-in">
+        <div class="val-icon vi-1"><i class="fa-solid fa-people-group"></i></div>
+        <h3 class="val-title">Inclusion</h3>
+        <p class="val-desc">We celebrate diversity and ensure that every voice is heard, valued, and represented in everything we do.</p>
+      </div>
+      <div class="val-card fade-in">
+        <div class="val-icon vi-2"><i class="fa-solid fa-shield-halved"></i></div>
+        <h3 class="val-title">Integrity</h3>
+        <p class="val-desc">We hold ourselves to the highest standards of transparency, accountability, and ethical conduct.</p>
+      </div>
+      <div class="val-card fade-in">
+        <div class="val-icon vi-3"><i class="fa-solid fa-crown"></i></div>
+        <h3 class="val-title">Leadership</h3>
+        <p class="val-desc">We inspire and equip community members to lead with courage, vision, and a servant mindset.</p>
+      </div>
+      <div class="val-card fade-in">
+        <div class="val-icon vi-4"><i class="fa-solid fa-heart"></i></div>
+        <h3 class="val-title">Compassion</h3>
+        <p class="val-desc">We approach every person and situation with empathy, care, and a genuine desire to make things better.</p>
+      </div>
+      <div class="val-card fade-in">
+        <div class="val-icon vi-5"><i class="fa-solid fa-bolt"></i></div>
+        <h3 class="val-title">Impact</h3>
+        <p class="val-desc">We measure our success not in dollars, but in the lasting, positive change we create in people's lives.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EVENTS ===================== -->
+<section id="events">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-tag">Upcoming Events</span>
+      <h2 class="section-title">Join Us &mdash; Be Part of the Story</h2>
+      <p class="section-subtitle">From elegant galas to community festivals, our events bring people together and fund meaningful change.</p>
+    </div>
+    <div class="events-grid">
+      <div class="event-card fade-in">
+        <div class="event-date-band">
+          <div class="event-date-num">14</div>
+          <div class="event-date-info">
+            <span class="event-date-month">June</span>
+            <span class="event-date-year">2025</span>
+          </div>
+        </div>
+        <div class="event-card-body">
+          <div class="event-type">Annual Fundraiser</div>
+          <h3 class="event-title">Garden Music Show &amp; Summer Gala</h3>
+          <p class="event-desc">An enchanting evening of live music, cultural performances, and fine dining under the stars. All proceeds support our Healthcare &amp; Scholarship programs.</p>
+          <div class="event-meta">
+            <span><i class="fa-solid fa-location-dot"></i> Oakville, ON</span>
+            <span><i class="fa-solid fa-clock"></i> 6:00 PM &ndash; 11:00 PM</span>
+          </div>
+          <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center;">Register Now <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="event-card fade-in">
+        <div class="event-date-band">
+          <div class="event-date-num">06</div>
+          <div class="event-date-info">
+            <span class="event-date-month">October</span>
+            <span class="event-date-year">2025</span>
+          </div>
+        </div>
+        <div class="event-card-body">
+          <div class="event-type">Cultural Celebration</div>
+          <h3 class="event-title">Mid-Autumn Moon Festival</h3>
+          <p class="event-desc">Celebrate the harvest moon with lanterns, traditional food, music, and community. A beloved annual event honouring our multicultural heritage.</p>
+          <div class="event-meta">
+            <span><i class="fa-solid fa-location-dot"></i> Toronto, ON</span>
+            <span><i class="fa-solid fa-clock"></i> 4:00 PM &ndash; 9:00 PM</span>
+          </div>
+          <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center;">Register Now <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="event-card fade-in">
+        <div class="event-date-band">
+          <div class="event-date-num">31</div>
+          <div class="event-date-info">
+            <span class="event-date-month">January</span>
+            <span class="event-date-year">2026</span>
+          </div>
+        </div>
+        <div class="event-card-body">
+          <div class="event-type">New Year Gala</div>
+          <h3 class="event-title">Renso Foundation New Year Charity Gala</h3>
+          <p class="event-desc">Ring in the lunar new year with dinner, dancing, a live auction, and the announcement of our annual scholarship recipients. A night of celebration and giving.</p>
+          <div class="event-meta">
+            <span><i class="fa-solid fa-location-dot"></i> Mississauga, ON</span>
+            <span><i class="fa-solid fa-clock"></i> 7:00 PM &ndash; Midnight</span>
+          </div>
+          <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center;">Register Now <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ABOUT / BOARD ===================== -->
+<section id="about">
+  <div class="container">
+    <div class="about-story">
+      <div class="about-story-img fade-in-left">
+        <div class="about-story-visual"><i class="fa-solid fa-canadian-maple-leaf"></i></div>
+        <div class="about-story-badge">
+          <div class="asb-num">7+</div>
+          <div class="asb-label">Years Serving<br>Canada</div>
+        </div>
+      </div>
+      <div class="about-story-content fade-in-right">
+        <span class="section-tag">Our Story</span>
+        <h2 class="section-title">Born from Community, Built for Community</h2>
+        <p class="about-story-text">Renso Foundation was founded in 2018 by a group of passionate community leaders who recognized a gap: Canada's multicultural communities had tremendous potential but limited resources and infrastructure to organize, lead, and uplift themselves.</p>
+        <p class="about-story-text">What started as small neighbourhood gatherings and fundraising dinners grew into a structured non-profit with registered charitable status, a dedicated board of directors, and programs spanning healthcare, education, economic development, and cultural celebration.</p>
+        <p class="about-story-text">Today, Renso Foundation serves communities across the Greater Toronto Area and beyond, with plans to expand programs nationally. Our work is driven by volunteers, sustained by donors, and measured by the real change we create in people's lives.</p>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;">
+          <a href="#programs" class="btn btn-dark">Explore Our Programs <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="#transparency" class="btn" style="background:var(--bg-light);color:var(--primary);border:2px solid var(--border);">View Reports</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header fade-in" style="margin-bottom:40px;">
+      <span class="section-tag">Leadership</span>
+      <h2 class="section-title">Board of Directors</h2>
+      <p class="section-subtitle">Guided by experienced leaders who bring diverse expertise and a shared passion for community impact.</p>
+    </div>
+    <div class="board-grid">
+      <div class="board-card fade-in">
+        <div class="board-avatar ba-1">MK</div>
+        <div class="board-name">Margaret Kim</div>
+        <div class="board-role">Chair &amp; Co-Founder</div>
+        <p class="board-bio">A seasoned social entrepreneur with 20 years in non-profit leadership, Margaret brings strategic vision and deep community roots to the Foundation's governance and direction.</p>
+        <div class="board-socials">
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="board-card fade-in">
+        <div class="board-avatar ba-2">DR</div>
+        <div class="board-name">David Ramirez</div>
+        <div class="board-role">Vice-Chair &amp; Treasurer</div>
+        <p class="board-bio">A CPA and former investment banker, David oversees financial stewardship and ensures Renso Foundation operates with the highest standards of fiscal responsibility and transparency.</p>
+        <div class="board-socials">
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="board-card fade-in">
+        <div class="board-avatar ba-3">AL</div>
+        <div class="board-name">Amara Lawal</div>
+        <div class="board-role">Secretary &amp; Programs Director</div>
+        <p class="board-bio">With a background in public health and community organizing, Amara leads program design and evaluation, ensuring every initiative delivers real, measurable outcomes.</p>
+        <div class="board-socials">
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== GET INVOLVED ===================== -->
+<section id="get-involved">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-tag">Get Involved</span>
+      <h2 class="section-title">There Is a Role for Everyone</h2>
+      <p class="section-subtitle">Whether you give time, talent, or treasure, your involvement creates the ripple that becomes a wave of change.</p>
+    </div>
+    <div class="involved-grid">
+      <div class="inv-card fade-in">
+        <div class="inv-icon ii-1"><i class="fa-solid fa-id-card"></i></div>
+        <h3 class="inv-title">Become a Member</h3>
+        <p class="inv-desc">Join our growing family of community advocates. Members receive invitations to exclusive events, early access to programs, and a direct voice in our governance.</p>
+        <a href="#contact" class="btn btn-dark">Join Now <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="inv-card fade-in">
+        <div class="inv-icon ii-2"><i class="fa-solid fa-hand-holding-heart"></i></div>
+        <h3 class="inv-title">Volunteer</h3>
+        <p class="inv-desc">Lend your skills, energy, and passion to our programs and events. We have opportunities for every schedule — from a single afternoon to ongoing weekly commitments.</p>
+        <a href="#contact" class="btn btn-accent">Volunteer <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="inv-card fade-in">
+        <div class="inv-icon ii-3"><i class="fa-solid fa-building-columns"></i></div>
+        <h3 class="inv-title">Sponsor</h3>
+        <p class="inv-desc">Corporate sponsors gain powerful brand visibility while making a real difference. Our packages are tailored to align your brand with community impact and Canadian values.</p>
+        <a href="#contact" class="btn btn-primary">Sponsor Us <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="inv-card fade-in">
+        <div class="inv-icon ii-4"><i class="fa-solid fa-link"></i></div>
+        <h3 class="inv-title">Partner With Us</h3>
+        <p class="inv-desc">Non-profits, educational institutions, and businesses are welcome to partner on programs, events, and research initiatives that amplify collective community impact.</p>
+        <a href="#contact" class="btn" style="background:rgba(107,70,193,.1);color:#6b46c1;border:2px solid rgba(107,70,193,.2);">Partner <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DONATE ===================== -->
+<section id="donate">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-tag">Support Our Work</span>
+      <h2 class="section-title">Your Gift Changes Lives</h2>
+      <p class="section-subtitle">Every dollar you give goes directly to programs that lift people up and strengthen communities across Canada.</p>
+    </div>
+    <div class="donate-wrapper">
+      <div class="donate-why fade-in-left">
+        <h3>Why Donate to Renso Foundation?</h3>
+        <div class="donate-why-list">
+          <div class="dw-item">
+            <div class="dw-icon"><i class="fa-solid fa-certificate"></i></div>
+            <div class="dw-text">
+              <strong>CRA-Registered Charity</strong>
+              <span>Official tax receipts issued for all eligible donations.</span>
+            </div>
+          </div>
+          <div class="dw-item">
+            <div class="dw-icon"><i class="fa-solid fa-chart-pie"></i></div>
+            <div class="dw-text">
+              <strong>85% to Programs</strong>
+              <span>85 cents of every dollar directly funds community initiatives.</span>
+            </div>
+          </div>
+          <div class="dw-item">
+            <div class="dw-icon"><i class="fa-solid fa-eye"></i></div>
+            <div class="dw-text">
+              <strong>Full Transparency</strong>
+              <span>Annual reports, audited financials, and real-time impact data published openly.</span>
+            </div>
+          </div>
+          <div class="dw-item">
+            <div class="dw-icon"><i class="fa-solid fa-bolt"></i></div>
+            <div class="dw-text">
+              <strong>Immediate Impact</strong>
+              <span>Donations are allocated within 30 days to active programs serving real people.</span>
+            </div>
+          </div>
+          <div class="dw-item">
+            <div class="dw-icon"><i class="fa-solid fa-building"></i></div>
+            <div class="dw-text">
+              <strong>Corporate Matching</strong>
+              <span>Many employers match employee donations — double your impact at no extra cost.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="donate-card fade-in-right">
+        <div class="donate-tabs">
+          <button class="donate-tab active" data-tab="onetime">One-Time Gift</button>
+          <button class="donate-tab" data-tab="monthly">Monthly Giving</button>
+        </div>
+        <label class="donate-label">Select an Amount</label>
+        <div class="donate-amounts">
+          <button class="donate-amount-btn" data-amount="25">$25</button>
+          <button class="donate-amount-btn active" data-amount="50">$50</button>
+          <button class="donate-amount-btn" data-amount="100">$100</button>
+          <button class="donate-amount-btn" data-amount="250">$250</button>
+        </div>
+        <input type="number" class="donate-custom" id="customAmount" placeholder="Enter custom amount ($)" min="5">
+        <label class="donate-label">Direct My Gift To</label>
+        <select class="donate-fund-select" id="donationFund">
+          <option value="general">General Fund (Where Needed Most)</option>
+          <option value="healthcare">Healthcare &amp; Compassion Programs</option>
+          <option value="scholarship">Education &amp; Scholarship Fund</option>
+          <option value="economic">Economic Empowerment Programs</option>
+          <option value="events">Cultural Events &amp; Community Building</option>
+        </select>
+        <button class="donate-btn-main" id="donateBtn">
+          <i class="fa-solid fa-heart"></i>
+          <span id="donateBtnText">Donate $50 Now</span>
+        </button>
+        <p class="donate-note"><i class="fa-solid fa-lock"></i> Secure &amp; Encrypted &bull; Tax Receipt Issued &bull; CRA Registered</p>
+        <div class="donate-matching">
+          <i class="fa-solid fa-building-columns dm-icon"></i>
+          <p class="dm-text"><strong>Employer Matching Available!</strong> Many Canadian employers will match your donation. Check with your HR department to double your impact at zero extra cost to you.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== NEWS ===================== -->
+<section id="news">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-tag">News &amp; Impact</span>
+      <h2 class="section-title">Stories That Inspire Action</h2>
+      <p class="section-subtitle">Real stories from our community — the people we serve, the milestones we reach, and the future we are building together.</p>
+    </div>
+    <div class="news-grid">
+      <div class="news-card fade-in">
+        <div class="news-thumb nt-1"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div class="news-card-body">
+          <div class="news-cat">Education &amp; Scholarships</div>
+          <h3 class="news-title">2024 Scholarship Recipients Announced — 12 Students Awarded</h3>
+          <p class="news-excerpt">Renso Foundation is thrilled to announce this year's scholarship cohort: 12 outstanding students from diverse backgrounds who will pursue post-secondary education with our support. Each recipient demonstrated academic excellence and a commitment to giving back.</p>
+          <div class="news-footer">
+            <span class="news-date"><i class="fa-regular fa-calendar"></i> March 15, 2025</span>
+            <a href="#" class="news-read">Read More <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="news-card fade-in">
+        <div class="news-thumb nt-2"><i class="fa-solid fa-hospital"></i></div>
+        <div class="news-card-body">
+          <div class="news-cat">Healthcare Initiative</div>
+          <h3 class="news-title">$150,000 Donated to Oakville Trafalgar Memorial Hospital</h3>
+          <p class="news-excerpt">Thanks to the generosity of our donors and the success of our annual Garden Music Show, Renso Foundation delivered a $150,000 cheque to Oakville Trafalgar Memorial Hospital to fund new oncology equipment that will serve thousands of patients annually.</p>
+          <div class="news-footer">
+            <span class="news-date"><i class="fa-regular fa-calendar"></i> January 28, 2025</span>
+            <a href="#" class="news-read">Read More <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="news-card fade-in">
+        <div class="news-thumb nt-3"><i class="fa-solid fa-rocket"></i></div>
+        <div class="news-card-body">
+          <div class="news-cat">Economic Empowerment</div>
+          <h3 class="news-title">Business Accelerator Cohort 3 Graduates 18 New Entrepreneurs</h3>
+          <p class="news-excerpt">The third cohort of our Business Accelerator program concluded with a pitch competition where 18 immigrant entrepreneurs showcased their ventures. Three received seed funding, and all graduates left with business plans, mentors, and a powerful professional network.</p>
+          <div class="news-footer">
+            <span class="news-date"><i class="fa-regular fa-calendar"></i> November 12, 2024</span>
+            <a href="#" class="news-read">Read More <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:48px;" class="fade-in">
+      <a href="#" class="btn btn-dark">View All News &amp; Stories <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TRANSPARENCY ===================== -->
+<section id="transparency">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-tag">Transparency &amp; Accountability</span>
+      <h2 class="section-title">Open Books. Open Hearts.</h2>
+      <p class="section-subtitle">We believe donors deserve to know exactly how their contributions are used. Transparency is not just a policy — it is a core value.</p>
+    </div>
+    <div class="trans-grid">
+      <div class="trans-card fade-in">
+        <div class="trans-card-icon ti-1"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+        <h3 class="trans-card-title">Financial Statements</h3>
+        <p class="trans-card-text">Our independently audited financial statements are published annually. You can review how every dollar was received and allocated across our programs and operations.</p>
+        <a href="#" class="trans-link">Download 2024 Annual Report <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="trans-card fade-in">
+        <div class="trans-card-icon ti-2"><i class="fa-solid fa-scale-balanced"></i></div>
+        <h3 class="trans-card-title">Governance Policies</h3>
+        <p class="trans-card-text">Our board-approved policies — including conflict of interest, whistleblower protections, and fund management — are available for public review. We govern with integrity.</p>
+        <a href="#" class="trans-link">View Governance Documents <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="trans-card fade-in">
+        <div class="trans-card-icon ti-3"><i class="fa-solid fa-chart-bar"></i></div>
+        <h3 class="trans-card-title">Impact Reports</h3>
+        <p class="trans-card-text">Beyond finances, we publish detailed program impact reports showing outcomes, beneficiary stories, and metrics. Because counting dollars matters less than counting lives changed.</p>
+        <a href="#" class="trans-link">View Impact Data <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <div class="cra-band fade-in">
+      <div class="cra-text">
+        <h3>CRA-Registered Charitable Organization</h3>
+        <p>Renso Foundation holds official charitable status with the Canada Revenue Agency (CRA). All donations are eligible for a charitable tax receipt. Our registration is current, compliant, and publicly verifiable on the CRA Charities Listing database. We file our T3010 annual return on time, every year.</p>
+      </div>
+      <div class="cra-info">
+        <div class="cra-badge"><i class="fa-solid fa-certificate"></i> CRA Registered Charity</div>
+        <div class="cra-badge"><i class="fa-solid fa-receipt"></i> Tax Receipts Issued</div>
+        <div class="cra-badge"><i class="fa-solid fa-check-circle"></i> T3010 Filed Annually</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section id="contact">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-tag">Contact Us</span>
+      <h2 class="section-title">We Would Love to Hear From You</h2>
+      <p class="section-subtitle">Whether you have a question, want to partner, or just want to learn more — our team is here and happy to connect.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info fade-in-left">
+        <div class="contact-info-cards">
+          <div class="ci-card">
+            <div class="ci-icon cii-blue"><i class="fa-solid fa-location-dot"></i></div>
+            <div>
+              <div class="ci-card-title">Our Office</div>
+              <div class="ci-card-text">123 Community Drive, Suite 200<br>Mississauga, Ontario L5B 3M9<br>Canada <span class="canada-maple">&#127809;</span></div>
+            </div>
+          </div>
+          <div class="ci-card">
+            <div class="ci-icon cii-teal"><i class="fa-solid fa-envelope"></i></div>
+            <div>
+              <div class="ci-card-title">Email Us</div>
+              <div class="ci-card-text">
+                General: <a href="mailto:hello@rensofoundation.ca" style="color:var(--accent);font-weight:600;">hello@rensofoundation.ca</a><br>
+                Donations: <a href="mailto:donate@rensofoundation.ca" style="color:var(--accent);font-weight:600;">donate@rensofoundation.ca</a><br>
+                Media: <a href="mailto:media@rensofoundation.ca" style="color:var(--accent);font-weight:600;">media@rensofoundation.ca</a>
+              </div>
+            </div>
+          </div>
+          <div class="ci-card">
+            <div class="ci-icon cii-gold"><i class="fa-solid fa-phone"></i></div>
+            <div>
+              <div class="ci-card-title">Call Us</div>
+              <div class="ci-card-text">
+                Main: <strong>+1 (905) 555-0182</strong><br>
+                Mon–Fri: 9:00 AM – 5:00 PM EST<br>
+                <span style="font-size:.8rem;color:var(--text-light);">Volunteers available evenings &amp; weekends</span>
+              </div>
+            </div>
+          </div>
+          <div class="ci-card">
+            <div class="ci-icon" style="background:rgba(107,70,193,.08);color:#6b46c1;"><i class="fa-solid fa-share-nodes"></i></div>
+            <div>
+              <div class="ci-card-title">Follow Us</div>
+              <div class="ci-card-text" style="display:flex;gap:10px;margin-top:4px;">
+                <a href="#" style="color:var(--primary);font-size:1.3rem;"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" style="color:#e1306c;font-size:1.3rem;"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" style="color:var(--accent);font-size:1.3rem;"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#" style="color:var(--primary);font-size:1.3rem;"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" style="color:#ff0000;font-size:1.3rem;"><i class="fa-brands fa-youtube"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form-wrap fade-in-right">
+        <h3 style="font-family:'Playfair Display',serif;color:var(--primary);font-size:1.4rem;margin-bottom:24px;">Send Us a Message</h3>
+        <form id="contactForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First Name *</label>
+              <input type="text" id="fname" placeholder="Jane" required>
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name *</label>
+              <input type="text" id="lname" placeholder="Smith" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="femail">Email Address *</label>
+            <input type="email" id="femail" placeholder="jane@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="fsubject">Subject</label>
+            <input type="text" id="fsubject" placeholder="How can we help?">
+          </div>
+          <div class="form-group">
+            <label for="finquiry">Type of Inquiry</label>
+            <select id="finquiry">
+              <option value="">Select an option</option>
+              <option>Donation or Tax Receipt</option>
+              <option>Volunteer Opportunities</option>
+              <option>Corporate Sponsorship</option>
+              <option>Partnership Proposal</option>
+              <option>Program Information</option>
+              <option>Media &amp; Press</option>
+              <option>General Inquiry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="fmessage">Message *</label>
+            <textarea id="fmessage" placeholder="Tell us how we can help you or how you would like to get involved..." required></textarea>
+          </div>
+          <button type="submit" class="form-submit">
+            <i class="fa-solid fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="margin-bottom:16px;">
+          <div class="nav-logo-icon">R</div>
+          <div class="nav-logo-text">
+            <span class="nav-logo-name" style="color:var(--white);">Renso Foundation</span>
+            <span class="nav-logo-tagline" style="color:rgba(255,255,255,.5);">Connecting Communities</span>
+          </div>
+        </div>
+        <p class="footer-tagline">Empowering individuals and strengthening communities across Canada <span class="canada-maple">&#127809;</span> through leadership, opportunity, cultural connection, and compassionate care.</p>
+        <div class="footer-social">
+          <a href="#" class="fs-link" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="fs-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="fs-link" aria-label="X/Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="fs-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" class="fs-link" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="#home"><i class="fa-solid fa-chevron-right"></i> Home</a></li>
+          <li><a href="#about"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
+          <li><a href="#programs"><i class="fa-solid fa-chevron-right"></i> Our Programs</a></li>
+          <li><a href="#events"><i class="fa-solid fa-chevron-right"></i> Events</a></li>
+          <li><a href="#get-involved"><i class="fa-solid fa-chevron-right"></i> Get Involved</a></li>
+          <li><a href="#news"><i class="fa-solid fa-chevron-right"></i> News &amp; Impact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Programs</h4>
+        <ul class="footer-links">
+          <li><a href="#programs"><i class="fa-solid fa-chevron-right"></i> Healthcare &amp; Compassion</a></li>
+          <li><a href="#programs"><i class="fa-solid fa-chevron-right"></i> Economic Empowerment</a></li>
+          <li><a href="#programs"><i class="fa-solid fa-chevron-right"></i> Education &amp; Leadership</a></li>
+          <li><a href="#programs"><i class="fa-solid fa-chevron-right"></i> Cultural Events</a></li>
+          <li><a href="#programs"><i class="fa-solid fa-chevron-right"></i> Youth Leadership</a></li>
+          <li><a href="#programs"><i class="fa-solid fa-chevron-right"></i> Scholarships</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Support Us</h4>
+        <ul class="footer-links">
+          <li><a href="#donate"><i class="fa-solid fa-chevron-right"></i> Donate Now</a></li>
+          <li><a href="#get-involved"><i class="fa-solid fa-chevron-right"></i> Volunteer</a></li>
+          <li><a href="#get-involved"><i class="fa-solid fa-chevron-right"></i> Become a Member</a></li>
+          <li><a href="#get-involved"><i class="fa-solid fa-chevron-right"></i> Corporate Sponsorship</a></li>
+          <li><a href="#transparency"><i class="fa-solid fa-chevron-right"></i> Transparency</a></li>
+          <li><a href="#contact"><i class="fa-solid fa-chevron-right"></i> Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 Renso Foundation. All rights reserved. Registered Canadian Charity. Made with <i class="fa-solid fa-heart" style="color:var(--secondary);"></i> in Canada <span class="canada-maple">&#127809;</span></p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Accessibility</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== JAVASCRIPT ===================== -->
+<script>
+// ---- Navbar scroll behavior ----
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 40) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+});
+
+// ---- Hamburger / Mobile menu ----
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  mobileMenu.classList.toggle('open');
+});
+document.querySelectorAll('.mobile-link').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    mobileMenu.classList.remove('open');
+  });
+});
+// Close mobile menu on outside click
+document.addEventListener('click', (e) => {
+  if (!navbar.contains(e.target) && !mobileMenu.contains(e.target)) {
+    hamburger.classList.remove('active');
+    mobileMenu.classList.remove('open');
+  }
+});
+
+// ---- Intersection Observer for fade-in animations ----
+const observerOptions = { threshold: 0.12, rootMargin: '0px 0px -40px 0px' };
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      // Trigger counter animation if applicable
+      const counters = entry.target.querySelectorAll('.impact-num[data-count]');
+      counters.forEach(animateCounter);
+      observer.unobserve(entry.target);
+    }
+  });
+}, observerOptions);
+document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right').forEach(el => observer.observe(el));
+
+// ---- Counter animation ----
+function animateCounter(el) {
+  if (el.dataset.animated) return;
+  el.dataset.animated = 'true';
+  const target = parseInt(el.dataset.count, 10);
+  const suffix = el.closest('.impact-num') || el.closest('.hero-stat-num') ? '' : '';
+  const duration = 1800;
+  const start = performance.now();
+  function step(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    // Ease out cubic
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = Math.floor(eased * target);
+    el.textContent = current.toLocaleString();
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = target.toLocaleString() + (target >= 500 && el.closest('.hero-stat') ? '+' : (target >= 5000 ? '+' : (target >= 200 ? '+' : (target >= 12 ? '+' : ''))));
+  }
+  requestAnimationFrame(step);
+}
+
+// Hero stats counter (triggered separately since hero is visible on load)
+function initHeroCounters() {
+  const heroNums = document.querySelectorAll('.hero-stat-num[data-count]');
+  heroNums.forEach(el => {
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = target >= 500 ? 'K+' : '+';
+    const duration = 2000;
+    const delay = 800;
+    setTimeout(() => {
+      const start = performance.now();
+      function step(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(eased * target);
+        el.textContent = current.toLocaleString() + (progress >= 1 ? suffix : '');
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }, delay);
+  });
+}
+initHeroCounters();
+
+// Impact section counters via observer
+const impactSection = document.getElementById('impact');
+const impactObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.impact-num[data-count]').forEach(animateCounter);
+      impactObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+if (impactSection) impactObserver.observe(impactSection);
+
+// ---- Donate section: tab switching ----
+const donateTabs = document.querySelectorAll('.donate-tab');
+donateTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    donateTabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    updateDonateBtn();
+  });
+});
+
+// ---- Donate section: amount buttons ----
+let selectedAmount = 50;
+const amountBtns = document.querySelectorAll('.donate-amount-btn');
+const customInput = document.getElementById('customAmount');
+const donateBtnText = document.getElementById('donateBtnText');
+
+function updateDonateBtn() {
+  const isMonthly = document.querySelector('.donate-tab.active').dataset.tab === 'monthly';
+  const amt = customInput.value ? parseInt(customInput.value) : selectedAmount;
+  const label = isMonthly ? `Give $${amt}/month` : `Donate $${amt} Now`;
+  donateBtnText.textContent = label;
+}
+
+amountBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    amountBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedAmount = parseInt(btn.dataset.amount);
+    customInput.value = '';
+    updateDonateBtn();
+  });
+});
+
+customInput.addEventListener('input', () => {
+  amountBtns.forEach(b => b.classList.remove('active'));
+  updateDonateBtn();
+});
+
+document.getElementById('donateBtn').addEventListener('click', () => {
+  const amount = customInput.value || selectedAmount;
+  const fund = document.getElementById('donationFund').value;
+  const isMonthly = document.querySelector('.donate-tab.active').dataset.tab === 'monthly';
+  alert(`Thank you for your ${isMonthly ? 'monthly ' : ''}donation of $${amount} to the ${document.getElementById('donationFund').options[document.getElementById('donationFund').selectedIndex].text}!\n\nIn a real implementation, this would redirect to a secure payment processor. A tax receipt will be emailed to you.`);
+});
+
+// ---- Contact form ----
+document.getElementById('contactForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  btn.innerHTML = '<i class="fa-solid fa-check"></i> Message Sent!';
+  btn.style.background = 'var(--accent)';
+  setTimeout(() => {
+    btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
+    btn.style.background = '';
+    e.target.reset();
+  }, 3000);
+});
+
+// ---- Smooth scroll for all anchor links ----
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', (e) => {
+    const target = document.querySelector(anchor.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      const offset = 72; // navbar height
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+});
+
+// ---- Stagger fade-in cards in grids ----
+document.querySelectorAll('.impact-grid .impact-card, .values-grid .val-card, .events-grid .event-card, .board-grid .board-card, .involved-grid .inv-card, .news-grid .news-card, .trans-grid .trans-card').forEach((card, i) => {
+  card.style.transitionDelay = `${(i % 4) * 0.1}s`;
+});
+</script>
+</body>
+</html>
