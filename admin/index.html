@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex" />
   <title>Renso Foundation | Content Manager</title>
   <!-- Explicitly tell Decap CMS where config.yml lives -->
-  <link rel="cms-config-url" type="application/json" href="/admin/config.yml" />
+  <link rel="cms-config-url" href="/admin/config.yml" />
   <style>
     /* Loading screen while CMS initializes */
     #cms-loading {
@@ -60,7 +60,7 @@
     });
   </script>
 
-  <!-- Decap CMS -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <!-- Decap CMS — pinned to stable 3.3.3 -->
+  <script src="https://unpkg.com/decap-cms@3.3.3/dist/decap-cms.js"></script>
 </body>
 </html>
