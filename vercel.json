@@ -1,7 +1,6 @@
 {
   "rewrites": [
-    { "source": "/admin", "destination": "/admin/index.html" },
-    { "source": "/admin/(.*)", "destination": "/admin/$1" }
+    { "source": "/api/auth", "destination": "/api/auth.js" }
   ],
   "headers": [
     {
@@ -9,6 +8,13 @@
       "headers": [
         { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
         { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    },
+    {
+      "source": "/admin/config.yml",
+      "headers": [
+        { "key": "Content-Type", "value": "text/yaml; charset=utf-8" },
+        { "key": "Cache-Control", "value": "no-cache" }
       ]
     }
   ]
