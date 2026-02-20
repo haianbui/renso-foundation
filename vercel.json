@@ -1,4 +1,6 @@
 {
+  "buildCommand": "node build.js",
+  "outputDirectory": ".",
   "rewrites": [
     { "source": "/api/auth", "destination": "/api/auth.js" }
   ],
@@ -8,13 +10,6 @@
       "headers": [
         { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
         { "key": "X-Content-Type-Options", "value": "nosniff" }
-      ]
-    },
-    {
-      "source": "/admin/config.yml",
-      "headers": [
-        { "key": "Content-Type", "value": "text/yaml; charset=utf-8" },
-        { "key": "Cache-Control", "value": "no-cache" }
       ]
     }
   ]
